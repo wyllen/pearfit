@@ -1,0 +1,164 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+    // Further reading:
+    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+    url      = env("DATABASE_URL")
+}
+
+model Account {
+    id                String  @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.Text
+    session_state     String?
+    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+}
+
+model Session {
+    id           String   @id
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id])
+}
+
+model User {
+    id               String             @id
+    name             String?
+    email            String?            @unique
+    emailVerified    DateTime?
+    image            String?
+    accounts         Account[]
+    sessions         Session[]
+    userOrganisation UserOrganisation[]
+    candidateQuiz    CandidateQuiz[]
+}
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+}
+
+model Candidate {
+    id              String            @id @unique
+    name            String
+    linkedinUrl     String?
+    organisation    Organisation?     @relation(fields: [organisationId], references: [id])
+    role            Role?             @relation(fields: [roleId], references: [id])
+    organisationId  String?
+    roleId          String?
+    candidateQuiz   CandidateQuiz[]
+    candidateAnswer CandidateAnswer[]
+}
+
+model Role {
+    id             String        @id @unique
+    name           String?
+    organisation   Organisation? @relation(fields: [organisationId], references: [id])
+    Candidate      Candidate[]
+    organisationId String?
+    roleLevel      RoleLevel[]
+    quiz           Quiz[]
+}
+
+model RoleLevel {
+    id     String  @id @unique
+    name   String?
+    level  Int?
+    role   Role?   @relation(fields: [roleId], references: [id])
+    roleId String?
+}
+
+model Organisation {
+    id               String             @id @unique
+    name             String?
+    contactEmail     String?
+    address          String?
+    postalCode       Int?
+    city             String?
+    country          String?
+    candidate        Candidate[]
+    role             Role[]
+    userOrganisation UserOrganisation[]
+    quiz             Quiz[]
+}
+
+model UserOrganisation {
+    id             String        @id @unique
+    user           User?         @relation(fields: [userId], references: [id])
+    organisation   Organisation? @relation(fields: [organisationId], references: [id])
+    userId         String?
+    organisationId String?
+}
+
+model Quiz {
+    id             String          @id @unique
+    name           String?
+    createdAt      DateTime?
+    updatedAt      DateTime?
+    role           Role?           @relation(fields: [roleId], references: [id])
+    organisation   Organisation?   @relation(fields: [organisationId], references: [id])
+    roleId         String?
+    organisationId String?
+    question       Question[]
+    candidateQuiz  CandidateQuiz[]
+}
+
+model Question {
+    id           String   @id @unique
+    title        String?
+    quiz         Quiz?    @relation(fields: [quizId], references: [id])
+    quizId       String?
+    answers      Answer[]
+    goodAnswerId String?
+}
+
+model Answer {
+    id              String            @id @unique
+    title           String?
+    question        Question?         @relation(fields: [questionId], references: [id])
+    questionId      String?
+    goodAnwser      Boolean?
+    CandidateAnswer CandidateAnswer[]
+}
+
+model CandidateQuiz {
+    id          String     @id @unique
+    evaluatedAt DateTime?
+    score       Int?
+    candidate   Candidate? @relation(fields: [candidateId], references: [id])
+    quiz        Quiz?      @relation(fields: [quizId], references: [id])
+    interviewer User?      @relation(fields: [userId], references: [id])
+    candidateId String?
+    quizId      String?
+    userId      String?
+}
+
+model CandidateAnswer {
+    id                String     @id @unique
+    candidateAnswer   Answer?    @relation(fields: [candidateAnswerId], references: [id])
+    candidate         Candidate? @relation(fields: [candidateId], references: [id])
+    candidateId       String?
+    candidateAnswerId String?
+}
