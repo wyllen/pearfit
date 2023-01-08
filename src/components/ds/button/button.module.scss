@@ -1,0 +1,32 @@
+@use "../../../scss/mixins";
+@use "../../../scss/colors.module" as colors;
+@use "../../../scss/sizes.module" as sizes;
+@use "../../../scss/functions";
+
+$defaultHeight: functions.toRem(44);
+$defaultPadding: functions.toRem(16);
+
+.root {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    @each $name, $value in sizes.$sizes {
+        &.#{$name} {
+            @include mixins.rounded($value*2);
+            $height : $defaultPadding * 3 * $value;
+            height: $height;
+            min-width: $height;
+            padding: 0 $defaultPadding * $value;
+            gap: $defaultPadding/2 * $value;
+        }
+    }
+    @each $name, $hex in colors.$colors {
+        &.#{$name} {
+            background-color: $hex;
+            color: functions.color-contrast($hex);
+            &:hover{
+                background-color: darken($hex, 10%);
+            }
+        }
+    }
+}

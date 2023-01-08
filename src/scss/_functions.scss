@@ -1,0 +1,31 @@
+@use "sass:math";
+@use "./colors.module" as colors;
+
+// Function:  Returns the most contrasty color to the input color
+// Source:  https://codepen.io/bluesaunders/pen/FCLaz (his was way better than the one I wrote myself)
+
+$darkTextDefault: colors.$white !default;
+$lightTextDefault: colors.$black  !default;
+
+// Calculate brightness of a given color.
+@function brightness($color) {
+    @return ((red($color) * .299) + (green($color) * .587) + (blue($color) * .114)) / 255 * 100%;
+}
+
+// Compares contrast of a given color to the light/dark arguments and returns whichever is most "contrasty"
+@function color-contrast($color, $dark: $darkTextDefault, $light: $lightTextDefault) {
+    @if $color == null {
+        @return null;
+    }
+    @else {
+        $color-brightness: brightness($color);  
+        $light-text-brightness: brightness($light);
+        $dark-text-brightness: brightness($dark);
+
+        @return if(abs($color-brightness - $light-text-brightness) > abs($color-brightness - $dark-text-brightness), $light, $dark);  
+    }
+}
+
+@function toRem($value) {
+    @return math.div($value, 16) * 1rem;
+}

@@ -1,10 +1,11 @@
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "../utils/api";
+import Button from '../components/ds/button/button';
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
           <h1 className={styles.title}>
             Create <span className={styles.pinkSpan}>T3</span> App
           </h1>
+          <Button  color='red'/>
           <div className={styles.cardRow}>
             <Link
               className={styles.card}

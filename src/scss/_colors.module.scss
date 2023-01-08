@@ -1,0 +1,34 @@
+$primary: #4A3EE6;
+$secondary: #4FADA6;
+$tertiary: #F5BD5F;
+
+$success: $secondary;
+$danger: #EA4650;
+
+$white: #fff;
+$black: #000;
+
+$textLight: $white;
+$textDark: $black;
+
+$facebook: #1877F2;
+$linkedin: #0A66C2;
+$google: #EA4335;
+
+$colors: (
+    "primary": $primary, 
+    "secondary": $secondary, 
+    "tertiary": $tertiary,
+    "danger": $danger,
+    "white": $white,
+    "black": $black,
+    "facebook": $facebook,
+    "linkedin": $linkedin,
+    "google": $google,
+    );
+
+:export {
+    @each $name, $hex in $colors {
+        #{$name}: $hex                
+    }
+}
