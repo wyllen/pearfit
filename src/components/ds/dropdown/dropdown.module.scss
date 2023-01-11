@@ -1,0 +1,50 @@
+@use 'sass:math';
+
+@use '../../../scss/mixins';
+@use '../../../scss/font';
+@use '../../../scss/functions';
+@use '../../../scss/colors';
+@use '../../../scss/dimensions';
+@use '../../../scss/sizes';
+@use '../../../scss/timing';
+
+.dropdown {
+  position: relative;
+  display: inline-flex;
+  &__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: math(dimensions.$baseRem, 2);
+    cursor: pointer;
+  }
+  &__arrow {
+    @include mixins.color(colors.$white, colors.$black);
+    fill: currentColor;
+  }
+  &__content {
+    @include mixins.rounded('m');
+    @include mixins.shadow();
+    @include mixins.bgColor(rgba(colors.$white, 10%), rgba(colors.$black, 10%));
+
+    backdrop-filter: blur(50px);
+    display: flex;
+    flex-direction: column;
+    min-width: dimensions.$baseRem * 30;
+    max-width: dimensions.$baseRem * 40;
+    opacity: 0;
+    transform: translateY(dimensions.$baseRem * 2);
+    transition: timing.$default;
+    &--open {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    &-header {
+      @include mixins.rounded('m', true);
+      @include mixins.bgColor(colors.$white, colors.$black);
+      padding: dimensions.$baseRem dimensions.$baseRem * 2;
+    }
+    &-inner {
+      padding: dimensions.$baseRem * 2;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 export const black: string;
+export const button: string;
 export const danger: string;
 export const facebook: string;
 export const google: string;
@@ -6,7 +7,6 @@ export const l: string;
 export const linkedin: string;
 export const m: string;
 export const primary: string;
-export const root: string;
 export const s: string;
 export const secondary: string;
 export const tertiary: string;

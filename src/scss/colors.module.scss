@@ -1,0 +1,7 @@
+@use 'colors';
+
+:export {
+    @each $name, $hex in colors.$colors {
+        #{$name}: $hex                
+    }
+}

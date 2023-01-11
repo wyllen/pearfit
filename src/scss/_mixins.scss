@@ -1,8 +1,46 @@
 @use 'functions';
+@use 'dimensions';
+@use 'sizes';
+@use 'colors';
 @use "sass:math";
 
-$baseRem: functions.toRem(8);
+$baseRem: functions.toRem(dimensions.$base);
 
-@mixin rounded($radius: 1){
-    border-radius: $baseRem * $radius;
+@mixin rounded($radius: "m", $topOnly: false, $bottomOnly: false, $multiplier: 1){
+    border-radius: $baseRem * 2 * map-get(sizes.$sizes, $radius) * $multiplier;
+
+    @if $topOnly {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+
+@mixin shadow($size: "m"){
+    $modifier: map-get(sizes.$sizes, $size);
+    $offset : $baseRem * $modifier;
+    $spread: $baseRem * 2 * $modifier;
+    box-shadow: $offset $offset $spread rgba(colors.$black, 0.1);
+}
+
+@mixin bgColor($color, $dark){
+    background-color: $color;
+    transition: 250ms ease background-color;
+    &[class*="dark-mode"],
+    [class*="dark-mode"] &{
+        background-color: $dark;
+    }
+    // @media (prefers-color-scheme: dark) {
+    //     background-color: $dark;
+    // }
+}
+@mixin color($color, $dark){
+    color: $color;
+    transition: 250ms ease color;
+    &[class*="dark-mode"],
+    [class*="dark-mode"] &{
+        color: $dark;
+    }
+    // @media (prefers-color-scheme: dark) {
+    //     color: $dark;
+    // }
 }

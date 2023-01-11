@@ -1,13 +1,7 @@
-$sizes: (
-    "xs": 0.5, 
-    "s" : 0.75, 
-    "m" : 1, 
-    "l": 1.5, 
-    "xl": 2, 
-    );
+@use 'sizes';
 
 :export {
-    @each $name, $value in $sizes {
-        #{$name}: $value                
+    @each $name, $value in sizes.$sizes {
+        #{$name}: $value;                
     }
 }

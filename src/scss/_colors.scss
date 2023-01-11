@@ -1,0 +1,29 @@
+$primary: #4a3ee6;
+$secondary: #4fada6;
+$tertiary: #f5bd5f;
+
+$success: $secondary;
+$danger: #ea4650;
+
+$white: #fff;
+$black: #000;
+$lightGray: #d9d9d9;
+
+$textLight: $white;
+$textDark: $black;
+
+$facebook: #1877f2;
+$linkedin: #0a66c2;
+$google: #ea4335;
+
+$colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'tertiary': $tertiary,
+  'danger': $danger,
+  'white': $white,
+  'black': $black,
+  'facebook': $facebook,
+  'linkedin': $linkedin,
+  'google': $google,
+);

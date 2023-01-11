@@ -1,0 +1,49 @@
+@use '../../../scss/dimensions';
+@use '../../../scss/colors';
+@use '../../../scss/functions';
+@use '../../../scss/mixins';
+@use '../../../scss/timing';
+
+@use 'sass:math';
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: dimensions.$baseRem;
+  &__item {
+    @include mixins.rounded('xs');
+    padding: math.div(dimensions.$baseRem, 2) dimensions.$baseRem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: dimensions.$baseRem * 1;
+    transition: timing.$default;
+    background: rgba(colors.$white, 0);
+    &:focus-visible,
+    &:hover {
+      background: rgba(colors.$white, 30%);
+    }
+    &-icon {
+      display: inline-flex;
+      align-items: center;
+      > svg {
+        min-width: dimensions.$baseRem * 2;
+      }
+    }
+    &currentColor {
+      color: currentColor;
+    }
+    @each $name, $hex in colors.$colors {
+      &#{$name} {
+        color: $hex;
+      }
+    }
+    &-title {
+      flex: 1 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-right: auto;
+    }
+  }
+}

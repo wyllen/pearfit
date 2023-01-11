@@ -1,0 +1,20 @@
+@use "../scss/mixins";
+@use "../scss/colors";
+
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
+
+html{
+    height: 100%;
+}
+
+body{
+    background: radial-gradient(47.11% 84.81% at 82.47% 72.64%, rgba(47, 37, 159, 0.5) 0%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */, radial-gradient(21.95% 38.56% at 21.95% 38.56%, rgba(79, 173, 166, 0.5) 0%, rgba(79, 173, 166, 0.5) 0.01%, rgba(255, 255, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,;
+    @include mixins.bgColor(colors.$white, colors.$black);
+    @include mixins.color(colors.$black, colors.$white);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100%;
+    font-family: 'Nunito', sans-serif;
+}

@@ -1,0 +1,31 @@
+@use '../../../scss/functions';
+@use '../../../scss/colors';
+@use '../../../scss/timing';
+
+.switch {
+  &Root {
+    width: functions.toRem(48);
+    height: functions.toRem(26);
+    background-color: colors.$white;
+    transition: timing.$default;
+    border: 1px solid colors.$lightGray;
+    border-radius: functions.toRem(24);
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  &__thumb {
+    display: block;
+    width: functions.toRem(22);
+    height: functions.toRem(22);
+    background-color: colors.$lightGray;
+    border-radius: functions.toRem(24);
+    transform: translateX(2px);
+    will-change: transform;
+    transition: timing.$default;
+    &[data-state='checked'] {
+      transform: translateX(functions.toRem(22));
+      background-color: colors.$success;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@use 'sizes';
+@use 'sass:map';
+
+$spacing: map.merge(
+  sizes.$sizes,
+  (
+    'none': 0,
+  )
+);

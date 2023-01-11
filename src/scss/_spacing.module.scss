@@ -1,0 +1,7 @@
+@use 'spacing';
+
+:export {
+  @each $name, $value in spacing.$spacing {
+    #{$name}: $value;
+  }
+}

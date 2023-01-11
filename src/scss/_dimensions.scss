@@ -1,0 +1,4 @@
+@use 'functions';
+
+$base: 8;
+$baseRem: functions.toRem($base);

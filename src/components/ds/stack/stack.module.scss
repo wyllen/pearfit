@@ -1,0 +1,15 @@
+@use '../../../scss/spacing';
+@use '../../../scss/dimensions';
+
+.stack {
+  display: flex;
+  align-items: center;
+  @each $name, $value in spacing.$spacing {
+    &.#{$name} {
+      gap: dimensions.$baseRem * $value * 2;
+    }
+  }
+  &__vertical {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,73 @@
+@use '../../../scss/mixins';
+@use '../../../scss/font';
+@use '../../../scss/functions';
+@use '../../../scss/colors';
+@use '../../../scss/dimensions';
+@use '../../../scss/sizes';
+
+.card {
+  $card: &;
+  @include mixins.bgColor(rgba(colors.$white, 0.7), rgba(colors.$black, 0.8));
+  @include mixins.shadow();
+  &__header {
+    display: flex;
+    align-items: center;
+    @include mixins.bgColor(
+      rgba(colors.$primary, 0.05),
+      rgba(colors.$white, 0.05)
+    );
+    &-title-wrapper {
+      flex: 1 1;
+      overflow: hidden;
+    }
+    &-subtitle,
+    &-title {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &-subtitle {
+      opacity: 0.8;
+    }
+    &-left,
+    &-right {
+      display: inline-flex;
+      align-items: center;
+      gap: functions.toRem(dimensions.$base * 2);
+    }
+    &-right {
+      margin-left: auto;
+    }
+  }
+
+  @each $name, $value in sizes.$sizes {
+    $padding: dimensions.$base * 4 * $value;
+    $cardPadding: functions.toRem($padding);
+    $cardHeaderHeight: functions.toRem($padding * 2.5);
+    $cardTitleFontSize: functions.toRem(font.$sizeXl * $value);
+    $cardSubTitleFontSize: functions.toRem(font.$sizeS * $value);
+    $cardheaderGap: functions.toRem(dimensions.$base * 2 * $value);
+    &.#{$name} {
+      @include mixins.rounded($name, false, false, 2);
+      #{$card}__header {
+        @include mixins.rounded($name, true, false, 2);
+        gap: $cardheaderGap;
+        height: $cardHeaderHeight;
+        padding: 0 $cardPadding;
+        > svg {
+          width: functions.toRem(24) * $value;
+          height: functions.toRem(24) * $value;
+        }
+        &-title {
+          font-size: $cardTitleFontSize;
+        }
+        &-subtitle {
+          font-size: $cardSubTitleFontSize;
+        }
+      }
+      #{$card}__content {
+        padding: $cardPadding;
+      }
+    }
+  }
+}
