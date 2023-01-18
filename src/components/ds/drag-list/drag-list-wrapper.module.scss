@@ -1,0 +1,6 @@
+.wrapper {
+  display: block;
+  &.center {
+    justify-content: center;
+  }
+}

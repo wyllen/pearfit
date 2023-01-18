@@ -1,6 +1,7 @@
 export const black: string;
 export const button: string;
 export const danger: string;
+export const discord: string;
 export const facebook: string;
 export const google: string;
 export const l: string;
@@ -10,6 +11,7 @@ export const primary: string;
 export const s: string;
 export const secondary: string;
 export const tertiary: string;
+export const twitter: string;
 export const white: string;
 export const xl: string;
 export const xs: string;

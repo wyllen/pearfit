@@ -32,12 +32,14 @@ Default.args = {
   subtitle:
     'Card SubTitle with a very very very very very very very very very very very very very very very lonnnnnng title',
   icon: <Activity />,
-  headerRight: [
-    <Button color="danger">
-      <Trash />
-    </Button>,
-    <Button>
-      <X />
-    </Button>,
-  ],
+  headerRight: (
+    <>
+      <Button color="danger">
+        <Trash />
+      </Button>
+      <Button>
+        <X />
+      </Button>
+    </>
+  ),
 };

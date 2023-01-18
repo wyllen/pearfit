@@ -1,16 +1,16 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import React from 'react';
 import type { Sizes } from '../../../types/sizes';
 import styles from './card.module.scss';
 
-interface CardProps {
+export interface CardProps {
   title?: string;
   subtitle?: string;
   icon?: ReactNode;
   size?: Sizes;
   children?: ReactNode;
-  headerRight?: ReactNode[];
+  headerRight?: ReactNode;
+  className?: string;
 }
 const Card = ({
   title,
@@ -19,8 +19,9 @@ const Card = ({
   size = 'm',
   headerRight,
   children,
+  className = '',
 }: CardProps) => {
-  const classes = classNames(styles.card, styles[size]);
+  const classes = classNames(styles.card, styles[size], className);
   return (
     <div className={classes}>
       {title && (
@@ -31,11 +32,7 @@ const Card = ({
             <p className={styles.cardHeaderSubtitle}>{subtitle}</p>
           </div>
           {headerRight && (
-            <div className={styles.cardHeaderRight}>
-              {headerRight.map((headerRightElement, key) => (
-                <React.Fragment key={key}>{headerRightElement}</React.Fragment>
-              ))}
-            </div>
+            <div className={styles.cardHeaderRight}>{headerRight}</div>
           )}
         </div>
       )}

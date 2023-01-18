@@ -9,7 +9,9 @@
       gap: dimensions.$baseRem * $value * 2;
     }
   }
-  &__vertical {
+  &.vertical {
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
   }
 }

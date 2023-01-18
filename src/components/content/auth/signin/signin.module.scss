@@ -1,0 +1,22 @@
+@use '../../../../scss/dimensions';
+@use '../../../../scss/colors';
+.signin {
+  background: linear-gradient(225deg, colors.$secondary, colors.$white);
+  &__container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  &__card {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    max-width: 700px;
+    aspect-ratio: 1 / 1;
+    .stack {
+      align-items: stretch !important;
+      margin: auto;
+    }
+  }
+}

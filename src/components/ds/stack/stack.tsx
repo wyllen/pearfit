@@ -7,11 +7,12 @@ interface StackProps {
   children?: ReactNode;
   gap?: Spacing;
   vertical?: boolean;
+  className?: string;
 }
 
-const Stack = ({ children, gap = 'm', vertical }: StackProps) => {
-  const classes = classNames(styles.stack, styles[gap], {
-    [styles.stackVertical]: vertical,
+const Stack = ({ children, gap = 'm', vertical, className }: StackProps) => {
+  const classes = classNames(styles.stack, styles[gap], className, {
+    [styles.vertical]: vertical,
   });
   return <div className={classes}>{children}</div>;
 };

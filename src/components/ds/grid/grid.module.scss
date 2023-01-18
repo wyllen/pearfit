@@ -1,0 +1,18 @@
+@use '../../../scss/dimensions';
+@use '../../../scss/spacing';
+
+$gap: dimensions.$baseRem * 2;
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  &.gap {
+    @each $name, $value in spacing.$spacing {
+      &#{$name} {
+        margin: 0 #{$gap * $value / 2 * -1};
+        --gap: #{$gap * $value / 2};
+        row-gap: $gap * $value;
+      }
+    }
+  }
+}

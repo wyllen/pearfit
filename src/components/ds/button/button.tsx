@@ -7,6 +7,7 @@ import styles from './button.module.scss';
 interface ButtonProps {
   color?: Colors;
   size?: Sizes;
+  className?: string;
   children?: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
@@ -14,11 +15,17 @@ interface ButtonProps {
 const Button = ({
   color = 'primary',
   size = 'm',
+  className = '',
   children,
   onClick,
   ...props
 }: ButtonProps) => {
-  const classNames = classnames(styles.button, styles[color], styles[size]);
+  const classNames = classnames(
+    styles.button,
+    styles[color],
+    styles[size],
+    className
+  );
   return (
     <button {...props} className={classNames} onClick={onClick}>
       {children}

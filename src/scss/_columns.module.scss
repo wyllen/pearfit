@@ -1,0 +1,7 @@
+@use 'columns';
+
+:export {
+  @each $name, $value in columns.$columns {
+    #{$name}: $value;
+  }
+}

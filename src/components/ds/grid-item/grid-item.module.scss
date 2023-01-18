@@ -1,0 +1,26 @@
+@use '../../../scss/dimensions';
+@use '../../../scss/columns';
+@use 'sass:math';
+
+$colSize: math.div(100, 12);
+
+.grid-item {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 100%;
+  padding: 0 var(--gap);
+  .none {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
+  @each $name, $value in columns.$columns {
+    &.#{$name} {
+      flex-basis: auto;
+      flex-grow: 0;
+      width: $colSize * $value * 1%;
+      min-width: 0px;
+    }
+  }
+}
