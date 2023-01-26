@@ -7,7 +7,7 @@
 
 .card {
   $card: &;
-  @include mixins.bgColor(rgba(colors.$white, 0.7), rgba(colors.$black, 0.8));
+  @include mixins.bgColor(rgba(colors.$white, 0.9), rgba(colors.$black, 0.9));
   @include mixins.shadow();
   &__header {
     display: flex;

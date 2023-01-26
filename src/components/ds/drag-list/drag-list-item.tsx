@@ -54,7 +54,6 @@ const DragListItem = React.memo(
         fadeIn,
         handle,
         handleProps,
-        height,
         index,
         listeners,
         onRemove,

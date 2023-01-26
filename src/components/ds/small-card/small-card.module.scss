@@ -1,0 +1,47 @@
+@use '../../../scss/colors';
+@use '../../../scss/dimensions';
+@use '../../../scss/functions';
+@use '../../../scss/font';
+@use '../../../scss/mixins';
+@use '../../../scss/timing';
+
+.small-card {
+  display: flex;
+  align-items: center;
+  gap: dimensions.$baseRem * 2;
+  width: 100%;
+  padding: dimensions.$baseRem;
+  cursor: pointer;
+  transition: timing.$default;
+  @include mixins.rounded('s');
+  &:focus-within,
+  &:hover {
+    @include mixins.bgColor(darken(colors.$white, 5%), colors.$bgDarkMode);
+  }
+  &__content {
+    flex: 1 1;
+    overflow: hidden;
+  }
+  &__right-slot {
+    margin-left: auto;
+  }
+  &__title,
+  &__sub-title,
+  &__meta {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  &__title {
+    font-weight: bold;
+    font-size: functions.toRem(font.$sizeL);
+  }
+  &__sub-title {
+    font-size: functions.toRem(font.$sizeM);
+  }
+  &__meta {
+    font-size: functions.toRem(font.$sizeS);
+    opacity: 0.8;
+    font-style: italic;
+  }
+}

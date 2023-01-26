@@ -1,0 +1,58 @@
+@use '../../../scss/colors';
+@use '../../../scss/mixins';
+@use '../../../scss/dimensions';
+
+.select {
+  background: white;
+  &__trigger {
+    position: relative;
+    padding-right: dimensions.$baseRem * 8;
+    overflow: hidden;
+    white-space: nowrap;
+    > *:first-child {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &--default {
+      @include mixins.formField();
+    }
+    &--inline {
+      display: inline-flex;
+    }
+    &-icon {
+      position: absolute;
+      right: dimensions.$baseRem * 2;
+      top: 50%;
+      translate: 0 -50%;
+      display: flex;
+      align-items: center;
+      opacity: 0.5;
+    }
+  }
+  &__content {
+    @include mixins.rounded();
+    @include mixins.bgColor(rgba(colors.$white, 0.4), colors.$black);
+    backdrop-filter: blur(5px);
+    padding: 10px;
+  }
+  &__item {
+    @include mixins.rounded('xs');
+    padding: 0 dimensions.$baseRem;
+    margin: 0 dimensions.$baseRem;
+    height: dimensions.$baseRem * 4;
+    display: flex;
+    align-items: center;
+    &:hover {
+      @include mixins.shadow('xs');
+      background: colors.$primary;
+      color: colors.$white;
+    }
+  }
+  &__scroll-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    cursor: default;
+  }
+}

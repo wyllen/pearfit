@@ -1,5 +1,6 @@
 import type { Provider } from 'next-auth/providers';
 import { getProviders } from 'next-auth/react';
+import type { ReactElement } from 'react';
 import SignInContent from '../../components/content/auth/signin/signin';
 
 interface SignInProps {
@@ -15,6 +16,10 @@ export const getServerSideProps = async () => {
   return {
     props: { providers },
   };
+};
+
+SignIn.getLayout = function getLayout(page: ReactElement) {
+  return <>{page}</>;
 };
 
 export default SignIn;

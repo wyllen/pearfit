@@ -1,3 +1,5 @@
+export const appearFromBottom: string;
+export const disappearToBottom: string;
 export const dropdownMenu: string;
 export const dropdownMenuItem: string;
 export const dropdownMenuItemblack: string;
@@ -14,3 +16,5 @@ export const dropdownMenuItemtertiary: string;
 export const dropdownMenuItemTitle: string;
 export const dropdownMenuItemtwitter: string;
 export const dropdownMenuItemwhite: string;
+export const fadeIn: string;
+export const fadeOut: string;

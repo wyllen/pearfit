@@ -27,13 +27,24 @@ const items: DropdownMenuItem[] = [
     onClick: () => alert('pouet'),
   },
   {
+    icon: <Settings />,
+    title: 'Organisation',
+    type: 'select',
+    options: [
+      { label: 'Organisation 1', value: 'org1' },
+      { label: 'Organisation 2', value: 'org2' },
+      { label: 'Organisation 3', value: 'org3' },
+    ],
+    onChange: (value) => alert(value),
+  },
+  {
     icon: <Logout />,
     title: 'Déconnexion',
     titleColor: 'danger',
     onClick: () => alert('pouet'),
   },
 ];
-const Template: ComponentStory<typeof Dropdown> = (args) => (
+const Template: ComponentStory<typeof Dropdown> = () => (
   <Dropdown trigger={<Button>Open</Button>} title="Nom de l'utilisateur">
     <DropdownMenu items={items} />
   </Dropdown>

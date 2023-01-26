@@ -2,45 +2,81 @@
 @use 'dimensions';
 @use 'sizes';
 @use 'colors';
-@use "sass:math";
+@use 'animations';
+@use 'timing';
+@use 'sass:math';
 
 $baseRem: functions.toRem(dimensions.$base);
 
-@mixin rounded($radius: "m", $topOnly: false, $bottomOnly: false, $multiplier: 1){
-    border-radius: $baseRem * 2 * map-get(sizes.$sizes, $radius) * $multiplier;
+@mixin rounded(
+  $radius: 'm',
+  $topOnly: false,
+  $bottomOnly: false,
+  $multiplier: 1
+) {
+  border-radius: $baseRem * 2 * map-get(sizes.$sizes, $radius) * $multiplier;
 
-    @if $topOnly {
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
+  @if $topOnly {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
 
-@mixin shadow($size: "m"){
-    $modifier: map-get(sizes.$sizes, $size);
-    $offset : $baseRem * $modifier;
-    $spread: $baseRem * 2 * $modifier;
-    box-shadow: $offset $offset $spread rgba(colors.$black, 0.1);
+@mixin shadow($size: 'm') {
+  $modifier: map-get(sizes.$sizes, $size);
+  $offset: $baseRem * $modifier;
+  $spread: $baseRem * 2 * $modifier;
+  box-shadow: $offset $offset $spread rgba(colors.$black, 0.1);
 }
 
-@mixin bgColor($color, $dark){
-    background-color: $color;
-    transition: 250ms ease background-color;
-    &[class*="dark-mode"],
-    [class*="dark-mode"] &{
-        background-color: $dark;
-    }
-    // @media (prefers-color-scheme: dark) {
-    //     background-color: $dark;
-    // }
+@mixin bgColor($color, $dark) {
+  background-color: $color;
+  transition: 250ms ease background-color;
+  &[class*='dark-mode'],
+  [class*='dark-mode'] & {
+    background-color: $dark;
+  }
+  // @media (prefers-color-scheme: dark) {
+  //     background-color: $dark;
+  // }
 }
-@mixin color($color, $dark){
-    color: $color;
-    transition: 250ms ease color;
-    &[class*="dark-mode"],
-    [class*="dark-mode"] &{
-        color: $dark;
-    }
-    // @media (prefers-color-scheme: dark) {
-    //     color: $dark;
-    // }
+@mixin color($color, $dark) {
+  color: $color;
+  transition: 250ms ease color;
+  &[class*='dark-mode'],
+  [class*='dark-mode'] & {
+    color: $dark;
+  }
+  // @media (prefers-color-scheme: dark) {
+  //     color: $dark;
+  // }
+}
+
+@mixin formField() {
+  @include rounded('xs');
+  padding: dimensions.$baseRem * 2;
+  width: 100%;
+  border: 1px solid rgba(colors.$black, 0.2);
+  background-color: rgba(colors.$black, 0.01);
+  transition: timing.$default;
+  &:focus {
+    border-color: rgba(colors.$black, 0.5);
+    background-color: rgba(colors.$black, 0.02);
+  }
+}
+
+@mixin fadeIn() {
+  animation: fadeIn 250ms ease;
+}
+
+@mixin fadeOut() {
+  animation: fadeOut 250ms ease-out;
+}
+
+@mixin appearFromBottom() {
+  animation: appearFromBottom 250ms ease;
+}
+
+@mixin disappearToBottom() {
+  animation: disappearToBottom 250ms ease;
 }

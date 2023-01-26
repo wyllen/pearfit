@@ -1,0 +1,32 @@
+@use '../../../scss/colors';
+@use '../../../scss/functions';
+
+$defaultHeight: functions.toRem(44);
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: $defaultHeight;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  @each $name, $hex in colors.$colors {
+    &.#{$name} {
+      background-color: $hex;
+      color: functions.color-contrast($hex);
+      &:hover {
+        background-color: darken($hex, 10%);
+      }
+    }
+  }
+  &__fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}

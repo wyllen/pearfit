@@ -13,6 +13,7 @@ export const authOptions: NextAuthOptions = {
   //   signIn: '/auth/signin',
   // },
   callbacks: {
+    /* eslint-disable-next-line */
     async signIn({ user, account, profile, email, credentials }) {
       console.log('----------signIn----------');
       return true;

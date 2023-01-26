@@ -4,7 +4,7 @@ import type { Sizes } from '../../../types/sizes';
 import styles from './card.module.scss';
 
 export interface CardProps {
-  title?: string;
+  title?: string | null;
   subtitle?: string;
   icon?: ReactNode;
   size?: Sizes;

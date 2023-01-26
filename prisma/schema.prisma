@@ -132,7 +132,6 @@ model Question {
     quiz         Quiz?    @relation(fields: [quizId], references: [id])
     quizId       String?
     answers      Answer[]
-    goodAnswerId String?
 }
 
 model Answer {

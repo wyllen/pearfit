@@ -1,12 +1,15 @@
+@use '../../../scss/dimensions';
 @use '../../../scss/functions';
 @use '../../../scss/sizes';
 
 $maxWidth: functions.toRem(1600);
+$padding: dimensions.$baseRem * 2;
 
 .container {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
+  padding: 0 $padding;
   @each $name, $value in sizes.$sizes {
     &.#{$name} {
       max-width: $maxWidth * $value;

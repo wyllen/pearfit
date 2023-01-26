@@ -22,7 +22,6 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "next.config.js",
     "src/middleware.ts"
   ],
   "exclude": ["node_modules"]

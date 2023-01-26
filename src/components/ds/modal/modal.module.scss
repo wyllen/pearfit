@@ -1,4 +1,5 @@
 @use '../../../scss/functions';
+@use '../../../scss/mixins';
 
 $width: functions.toRem(600);
 
@@ -8,10 +9,23 @@ $width: functions.toRem(600);
     position: fixed;
     z-index: 1000;
     inset: 0;
-    backdrop-filter: blur(5px);
-    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.7);
+    &[data-state='open'] {
+      @include mixins.fadeIn();
+    }
+    &[data-state='closed'] {
+      @include mixins.fadeOut();
+      animation-delay: 250ms;
+    }
   }
   &__content {
+    &[data-state='open'] {
+      @include mixins.appearFromBottom();
+    }
+    &[data-state='closed'] {
+      @include mixins.disappearToBottom();
+    }
     position: fixed;
     top: 50%;
     left: 50%;

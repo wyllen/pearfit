@@ -1,0 +1,5 @@
+@use '../../../scss/dimensions';
+
+.default-layout {
+  padding-top: dimensions.$topBarHeight;
+}

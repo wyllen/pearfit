@@ -1,25 +1,25 @@
-// @ts-check
-
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
  * This is especially useful for Docker builds.
  */
-!process.env.SKIP_ENV_VALIDATION && (await import('./src/env/server.mjs'));
+//s!process.env.SKIP_ENV_VALIDATION && (await import('./src/env/server.mjs'));
 
-/** @type {import("next").NextConfig} */
+const i18nConfig = require('./next-i18next.config.js');
+
 const config = {
   reactStrictMode: true,
   swcMinify: true,
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-  },
+  i18n: i18nConfig.i18n,
   webpack: (config) => {
     // add alias for scss folder
     //config.resolve.alias['@scss'] = path.resolve(__dirname, 'src/scss');
 
     // camel-case style names from css modules
-    config.module.rules
+
+    /** @type any */
+    const webpackConfig = config;
+
+    webpackConfig.module.rules
       .find(({ oneOf }) => !!oneOf)
       .oneOf.filter(({ use }) => JSON.stringify(use)?.includes('css-loader'))
       .reduce((acc, { use }) => acc.concat(use), [])
@@ -32,4 +32,4 @@ const config = {
     return config;
   },
 };
-export default config;
+module.exports = config;

@@ -10,7 +10,7 @@ export default {
 } as ComponentMeta<typeof DragList>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof DragList> = (args) => (
+const Template: ComponentStory<typeof DragList> = () => (
   <Container maxWidth="xs">
     <DragList
       handle={true}

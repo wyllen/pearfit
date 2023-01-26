@@ -1,6 +1,6 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'tabler-icons-react';
 import styles from './dropdown.module.scss';
@@ -10,6 +10,7 @@ interface DropdownProps {
   title?: string;
   trigger?: ReactNode;
   triggerChevron?: boolean;
+  arrowOffset?: number;
 }
 
 const Dropdown = ({
@@ -17,12 +18,17 @@ const Dropdown = ({
   title,
   trigger,
   triggerChevron = true,
+  arrowOffset,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentClasses = classNames([
     styles.dropdownContent,
     { [styles.dropdownContentOpen]: isOpen },
   ]);
+  const arrowStyle: CSSProperties = {};
+  if (arrowOffset) {
+    arrowStyle['marginLeft'] = `${arrowOffset}px`;
+  }
   return (
     <div className={styles.dropdown}>
       <RadixDropdown.Root onOpenChange={() => setIsOpen(!isOpen)}>
@@ -39,7 +45,10 @@ const Dropdown = ({
               <div className={styles.dropdownContentHeader}>{title}</div>
             )}
             <div className={styles.dropdownContentInner}>{children}</div>
-            <RadixDropdown.Arrow className={styles.dropdownArrow} />
+            <RadixDropdown.Arrow
+              style={arrowStyle}
+              className={styles.dropdownArrow}
+            />
           </RadixDropdown.Content>
         </RadixDropdown.Portal>
       </RadixDropdown.Root>

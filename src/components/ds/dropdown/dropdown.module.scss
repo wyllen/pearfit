@@ -26,7 +26,7 @@
     @include mixins.shadow();
     @include mixins.bgColor(rgba(colors.$white, 10%), rgba(colors.$black, 10%));
 
-    backdrop-filter: blur(50px);
+    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
     min-width: dimensions.$baseRem * 30;

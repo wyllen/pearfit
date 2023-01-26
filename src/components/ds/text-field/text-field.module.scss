@@ -1,0 +1,45 @@
+@use '../../../scss/colors';
+@use '../../../scss/dimensions';
+@use '../../../scss/functions';
+@use '../../../scss/font';
+@use '../../../scss/mixins';
+@use '../../../scss/timing';
+
+.text-field {
+  display: flex;
+  align-items: center;
+  gap: dimensions.$baseRem;
+  width: 100%;
+  &--readonly {
+    pointer-events: none;
+  }
+  &__label {
+    opacity: 0.7;
+  }
+  &__input {
+    @include mixins.formField();
+    &-wrapper {
+      position: relative;
+      flex: 1 1;
+    }
+    &::placeholder {
+      opacity: 0.2;
+    }
+    &--as-text {
+      border-color: transparent;
+      background-color: transparent;
+    }
+  }
+  &__icon {
+    position: absolute;
+    right: dimensions.$baseRem * 2;
+    top: 50%;
+    translate: 0 -50%;
+    display: flex;
+    align-items: center;
+    opacity: 0.5;
+  }
+  &__error {
+    border: 1px solid red;
+  }
+}
