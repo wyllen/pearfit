@@ -1,0 +1,21 @@
+@use '../../../../scss/timing';
+@use '../../../../scss/dimensions';
+@use '../../../../scss/mixins';
+
+.form {
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    opacity: 0;
+    max-height: 0;
+    transition: timing.$default;
+    &--show {
+      opacity: 1;
+      margin-top: dimensions.$baseRem * 2;
+      max-height: 50px;
+    }
+    &--shake {
+      @include mixins.horizontalSHake();
+    }
+  }
+}

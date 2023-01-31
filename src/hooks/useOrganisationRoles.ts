@@ -3,13 +3,10 @@ import useCurrentUserOrganisation from './useCurrentUserOrganisation';
 
 const useOrganisationRoles = () => {
   const { organisation } = useCurrentUserOrganisation();
-  if (organisation) {
-    const { data: roles } = api.organisation.roles.useQuery({
-      organisationId: organisation.id,
-    });
-    return roles;
-  }
-  return null;
+  const { data: roles } = api.organisation.roles.useQuery({
+    organisationId: organisation?.id || '',
+  });
+  return roles;
 };
 
 export default useOrganisationRoles;

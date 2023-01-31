@@ -45,6 +45,7 @@ specifiers:
   prisma: ^4.8.0
   react: 18.2.0
   react-dom: 18.2.0
+  react-hook-form: ^7.42.1
   react-i18next: ^12.1.4
   sass: ^1.57.1
   storybook-addon-next: ^1.7.1
@@ -80,6 +81,7 @@ dependencies:
   next-i18next: 13.0.3_55d6d9004e9bac027773609bc77592f0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.42.1_react@18.2.0
   react-i18next: 12.1.4_4014ad8e693a5f450dc0e3a80ea8e612
   sass: 1.57.1
   superjson: 1.9.1
@@ -11813,6 +11815,15 @@ packages:
       react-dom: 18.2.0_react@18.2.0
       react-is: 17.0.2
     dev: true
+
+  /react-hook-form/7.42.1_react@18.2.0:
+    resolution: {integrity: sha512-2UIGqwMZksd5HS55crTT1ATLTr0rAI4jS7yVuqTaoRVDhY2Qc4IyjskCmpnmdYqUNOYFy04vW253tb2JRVh+IQ==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /react-i18next/12.1.4_4014ad8e693a5f450dc0e3a80ea8e612:
     resolution: {integrity: sha512-XQND7jYtgM7ht5PH3yIZljCRpAMTlH/zmngM9ZjToqa+0BR6xuu8c7QF0WIIOEjcMTB2S3iOfpN/xG/ZrAnO6g==}

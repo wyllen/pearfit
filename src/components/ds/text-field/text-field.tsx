@@ -1,13 +1,17 @@
 import classNames from 'classnames';
-import type { ChangeEvent, ComponentPropsWithoutRef, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import type {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  LegacyRef,
+  ReactNode,
+} from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import styles from './text-field.module.scss';
 
 interface TextFieldProps extends ComponentPropsWithoutRef<'input'> {
   label?: any;
   onChange?: (event: ChangeEvent) => void;
   displayAsText?: boolean;
-  // value?: string;
   // onChange?: (value: string) => void;
   // type?:
   //   | 'text'
@@ -47,55 +51,61 @@ interface TextFieldProps extends ComponentPropsWithoutRef<'input'> {
   // readonly?: boolean;
 }
 
-const TextField = (props: TextFieldProps) => {
-  const {
-    label,
-    error,
-    displayAsText = false,
-    type = 'text',
-    icon,
-    value,
-    readOnly,
-    ...textFieldProps
-  } = props;
-  const [val, setVal] = useState<any>(value || '');
+const TextField = forwardRef(
+  (props: TextFieldProps, ref: LegacyRef<HTMLInputElement>) => {
+    console.log('props', props);
+    const {
+      label,
+      error,
+      displayAsText = false,
+      type = 'text',
+      icon,
+      value,
+      readOnly,
+      ...textFieldProps
+    } = props;
+    const [val, setVal] = useState<any>(value || '');
 
-  const handleChange = (e: ChangeEvent) => {
-    const { value } = e.target as HTMLInputElement;
-    setVal(value);
-    props.onChange?.(e);
-  };
+    const handleChange = (e: ChangeEvent) => {
+      const { value } = e.target as HTMLInputElement;
+      setVal(value);
+      props.onChange?.(e);
+    };
 
-  const inputClasses = classNames([
-    styles.textFieldInput,
-    { [styles.textFieldInputAsText]: displayAsText },
-    { [styles.textFieldReadonly]: readOnly },
-  ]);
+    const inputClasses = classNames([
+      styles.textFieldInput,
+      { error: error },
+      { [styles.textFieldInputAsText]: displayAsText },
+      { [styles.textFieldReadonly]: readOnly },
+    ]);
 
-  useEffect(() => {
-    setVal(value);
-  }, [value]);
+    useEffect(() => {
+      setVal(value);
+    }, [value]);
 
-  return (
-    <div className={styles.textField}>
-      {label && (
-        <label className={styles.textFieldLabel} htmlFor={label}>
-          {label}
-        </label>
-      )}
-      <div className={styles.textFieldInputWrapper}>
-        <input
-          className={inputClasses}
-          onChange={handleChange}
-          type={type}
-          value={val}
-          {...textFieldProps}
-        />
-        {icon && <span className={styles.textFieldIcon}>{icon}</span>}
+    return (
+      <div className={styles.textField}>
+        {label && (
+          <label className={styles.textFieldLabel} htmlFor={label}>
+            {label}
+          </label>
+        )}
+        <div className={styles.textFieldInputWrapper}>
+          <input
+            className={inputClasses}
+            onChange={handleChange}
+            type={type}
+            value={value}
+            ref={ref}
+            {...textFieldProps}
+          />
+          {icon && <span className={styles.textFieldIcon}>{icon}</span>}
+        </div>
+        {error && <span className={styles.textFieldError}>{error}</span>}
       </div>
-      {error && <span className={styles.textFieldError}>{error}</span>}
-    </div>
-  );
-};
+    );
+  }
+);
 
+TextField.displayName = 'TextField';
 export default TextField;

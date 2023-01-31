@@ -9,8 +9,8 @@ import GridItem from '../../../ds/grid-item/grid-item';
 import Grid from '../../../ds/grid/grid';
 import Modal from '../../../ds/modal/modal';
 import SmallCard from '../../../ds/small-card/small-card';
-import Stack from '../../../ds/stack/stack';
 import TextField from '../../../ds/text-field/text-field';
+import OrganisationInformations from '../../../forms/organisationInformations/organisationInformations';
 
 const OrganisationSettingsContent = () => {
   const { t } = useTranslation();
@@ -57,39 +57,7 @@ const OrganisationSettingsContent = () => {
             title={t('organisationInformations')}
             icon={<BuildingCommunity />}
           >
-            <Stack vertical={true} gap="none">
-              <TextField
-                label={t('organisationName')}
-                value={`${organisation?.name}`}
-                displayAsText={true}
-              />
-              <TextField
-                label={t('organisationEmail')}
-                value={`${organisation?.contactEmail}`}
-                type="email"
-                displayAsText={true}
-              />
-              <TextField
-                label={t('organisationAddress')}
-                value={`${organisation?.address}`}
-                displayAsText={true}
-              />
-              <TextField
-                label={t('organisationPostalCode')}
-                value={`${organisation?.postalCode}`}
-                displayAsText={true}
-              />
-              <TextField
-                label={t('organisationCity')}
-                value={`${organisation?.city}`}
-                displayAsText={true}
-              />
-              <TextField
-                label={t('organisationCountry')}
-                value={`${organisation?.country}`}
-                displayAsText={true}
-              />
-            </Stack>
+            <OrganisationInformations organisation={organisation} />
           </Card>
         </GridItem>
         <GridItem size="col6">

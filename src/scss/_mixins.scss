@@ -59,6 +59,9 @@ $baseRem: functions.toRem(dimensions.$base);
   border: 1px solid rgba(colors.$black, 0.2);
   background-color: rgba(colors.$black, 0.01);
   transition: timing.$default;
+  &[class*='error'] {
+    border-color: colors.$danger;
+  }
   &:focus {
     border-color: rgba(colors.$black, 0.5);
     background-color: rgba(colors.$black, 0.02);
@@ -79,4 +82,8 @@ $baseRem: functions.toRem(dimensions.$base);
 
 @mixin disappearToBottom() {
   animation: disappearToBottom 250ms ease;
+}
+
+@mixin horizontalSHake() {
+  animation: horizontal-shaking 500ms ease;
 }

@@ -24,6 +24,18 @@ Default.args = {
     </>
   ),
 };
+
+export const Error = Template.bind({});
+Error.args = {
+  value: 'Test de titre',
+  error: 'Une erreur est survenue',
+  icon: (
+    <>
+      <CirclePlus />
+    </>
+  ),
+};
+
 export const Withlabel = Template.bind({});
 Withlabel.args = {
   value: 'Test de titre',
