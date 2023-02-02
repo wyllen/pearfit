@@ -53,9 +53,9 @@ interface TextFieldProps extends ComponentPropsWithoutRef<'input'> {
 
 const TextField = forwardRef(
   (props: TextFieldProps, ref: LegacyRef<HTMLInputElement>) => {
-    console.log('props', props);
     const {
       label,
+      className,
       error,
       displayAsText = false,
       type = 'text',
@@ -83,8 +83,9 @@ const TextField = forwardRef(
       setVal(value);
     }, [value]);
 
+    const textFieldWrapperClasses = classNames([styles.textField, className]);
     return (
-      <div className={styles.textField}>
+      <div className={textFieldWrapperClasses}>
         {label && (
           <label className={styles.textFieldLabel} htmlFor={label}>
             {label}

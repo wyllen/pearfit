@@ -1,10 +1,14 @@
+import type { Role, RoleLevel } from '@prisma/client';
 import { useTranslation } from 'next-i18next';
+import { useEffect, useState } from 'react';
 import { Briefcase, BuildingCommunity, ReportMoney } from 'tabler-icons-react';
 import useCurrentUserOrganisation from '../../../../hooks/useCurrentUserOrganisation';
 import useOrganisationRoles from '../../../../hooks/useOrganisationRoles';
+import { api } from '../../../../utils/api';
 import Card from '../../../ds/card/card';
 import Container from '../../../ds/container/container';
-import DragList from '../../../ds/drag-list/drag-list';
+import DndListForm from '../../../ds/dnd-list-form/dnd-list-form';
+import type { OrderType } from '../../../ds/dnd-list/dnd-list';
 import GridItem from '../../../ds/grid-item/grid-item';
 import Grid from '../../../ds/grid/grid';
 import Modal from '../../../ds/modal/modal';
@@ -15,40 +19,67 @@ import OrganisationInformations from '../../../forms/organisationInformations/or
 const OrganisationSettingsContent = () => {
   const { t } = useTranslation();
 
+  type RoleWithRoleLevel = Role & {
+    roleLevel: RoleLevel[];
+  };
+
+  const [roles, setRoles] = useState<RoleWithRoleLevel[]>([]);
+
   const { organisation } = useCurrentUserOrganisation();
 
   const organisationRoles = useOrganisationRoles();
 
-  console.log('organisationRoles', organisationRoles);
+  useEffect(() => {
+    if (organisationRoles) {
+      setRoles(organisationRoles);
+    }
+  }, [organisationRoles]);
 
-  const roles = [
-    {
-      title: 'Front-End Developper',
-      subTitle: '4 niveaux',
-      levels: [
-        {
-          title: 'Débutant',
-          id: 1,
-        },
-        {
-          title: 'Confirmé',
-          id: 2,
-        },
-        {
-          title: 'Expert',
-          id: 3,
-        },
-      ],
+  const utils = api.useContext();
+  const removeRoleLevelMutation = api.organisation.removeRoleLevel.useMutation({
+    onSuccess: () => {
+      utils.organisation.roles.invalidate();
     },
-    {
-      title: 'Devops',
-      subTitle: '4 niveaux',
+  });
+  const addRoleLevelMutation = api.organisation.addRoleLevel.useMutation({
+    onSuccess: () => {
+      utils.organisation.roles.invalidate();
     },
-    {
-      title: 'Back-End Developper',
-      subTitle: '4 niveaux',
-    },
-  ];
+  });
+  const updateRoleLevelsMutation =
+    api.organisation.updateRoleLevelsLevel.useMutation({
+      onSuccess: () => {
+        utils.organisation.roles.invalidate();
+      },
+    });
+
+  const hanleChangeRoleLevels = (
+    role: RoleWithRoleLevel,
+    items: OrderType[]
+  ) => {
+    updateRoleLevelsMutation.mutate({
+      roleLevels: items.map((item) => ({
+        level: item.order,
+        id: item.id,
+      })),
+    });
+    setRoles((oldRoles: RoleWithRoleLevel[]) => {
+      const updatedRoles = [...oldRoles];
+      const roleIndex = updatedRoles.findIndex((r) => r.id === role.id);
+      updatedRoles[roleIndex] = {
+        ...role,
+        roleLevel:
+          updatedRoles[roleIndex]?.roleLevel?.map((item) => {
+            const newItem = items.find((i) => i.id === item.id);
+            return {
+              ...item,
+              level: newItem?.order,
+            } as RoleLevel;
+          }) || [],
+      };
+      return updatedRoles;
+    });
+  };
   return (
     <Container>
       <Grid gap="xl">
@@ -62,28 +93,43 @@ const OrganisationSettingsContent = () => {
         </GridItem>
         <GridItem size="col6">
           <Card title={t('roles')} icon={<Briefcase />}>
-            {organisationRoles?.map((role, key) => (
-              <Modal
-                key={key}
-                trigger={
-                  <SmallCard
-                    title={`${role.name}`}
-                    subtitle={`${role.roleLevel.length} niveaux`}
+            {roles?.map((role, key) => {
+              return (
+                <Modal
+                  key={key}
+                  trigger={
+                    <SmallCard
+                      title={`${role.name}`}
+                      subtitle={`${role.roleLevel.length} niveaux`}
+                    />
+                  }
+                  title={`${role.name}`}
+                >
+                  <DndListForm
+                    onChange={(items) => {
+                      hanleChangeRoleLevels(role, items);
+                    }}
+                    onAdd={(name, index) =>
+                      addRoleLevelMutation.mutate({
+                        name,
+                        roleId: role.id,
+                        level: index,
+                      })
+                    }
+                    onDelete={(id) =>
+                      removeRoleLevelMutation.mutate({ roleLevelId: id })
+                    }
+                    elements={role.roleLevel
+                      .map((level, index) => ({
+                        id: level.id,
+                        name: level.name || '',
+                        order: level.level || index,
+                      }))
+                      .sort((a, b) => a.order - b.order)}
                   />
-                }
-                title={`${role.name}`}
-              >
-                <DragList
-                  handle={true}
-                  onRemove={(id) => console.log(id)}
-                  onChange={(items) => console.log(items)}
-                  items={role.roleLevel.map((level) => ({
-                    id: level.id,
-                    title: level.name || '',
-                  }))}
-                />
-              </Modal>
-            ))}
+                </Modal>
+              );
+            })}
           </Card>
         </GridItem>
         <GridItem size="col6">

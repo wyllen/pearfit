@@ -1,0 +1,14 @@
+@use '../../../scss/dimensions';
+
+.quiz-layout {
+  padding-top: dimensions.$topBarHeight;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  &__content {
+    flex: 1 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

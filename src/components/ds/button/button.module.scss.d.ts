@@ -8,6 +8,7 @@ export const facebook: string;
 export const fadeIn: string;
 export const fadeOut: string;
 export const google: string;
+export const horizontalShaking: string;
 export const l: string;
 export const linkedin: string;
 export const m: string;

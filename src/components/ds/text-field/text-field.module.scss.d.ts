@@ -2,6 +2,7 @@ export const appearFromBottom: string;
 export const disappearToBottom: string;
 export const fadeIn: string;
 export const fadeOut: string;
+export const horizontalShaking: string;
 export const textField: string;
 export const textFieldError: string;
 export const textFieldIcon: string;

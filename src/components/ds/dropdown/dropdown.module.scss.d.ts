@@ -9,3 +9,4 @@ export const dropdownContentOpen: string;
 export const dropdownTrigger: string;
 export const fadeIn: string;
 export const fadeOut: string;
+export const horizontalShaking: string;

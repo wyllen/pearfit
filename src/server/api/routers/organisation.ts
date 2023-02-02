@@ -45,6 +45,74 @@ export const organisationRouter = createTRPCRouter({
 
       return roles;
     }),
+  removeRoleLevel: protectedProcedure
+    .input(
+      z.object({
+        roleLevelId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const roleLevelDeleted = await prisma?.roleLevel.delete({
+        where: {
+          id: input.roleLevelId,
+        },
+      });
+      return roleLevelDeleted;
+    }),
+  addRoleLevel: protectedProcedure
+    .input(
+      z.object({ name: z.string(), level: z.number(), roleId: z.string() })
+    )
+    .mutation(async ({ input }) => {
+      const roleLevel = await prisma?.roleLevel.create({
+        data: input,
+      });
+
+      return roleLevel;
+    }),
+  updateRoleLevelsLevel: protectedProcedure
+    .input(
+      z.object({
+        roleLevels: z.array(
+          z.object({
+            id: z.string(),
+            level: z.number(),
+          })
+        ),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const roleLevels = await Promise.all(
+        input.roleLevels.map((roleLevel) =>
+          prisma?.roleLevel.update({
+            where: {
+              id: roleLevel.id,
+            },
+            data: {
+              level: roleLevel.level,
+            },
+          })
+        )
+      );
+
+      return roleLevels;
+    }),
+
+  updateRoleLevel: protectedProcedure
+    .input(
+      z.object({
+        name: z.string().optional(),
+        level: z.number().optional(),
+        roleId: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const roleLevel = await prisma?.roleLevel.create({
+        data: input,
+      });
+
+      return roleLevel;
+    }),
   quizzes: protectedProcedure
     .input(z.object({ organisationId: z.string() }))
     .query(async ({ input }) => {

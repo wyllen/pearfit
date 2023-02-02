@@ -10,6 +10,7 @@ export const cardHeaderTitleWrapper: string;
 export const disappearToBottom: string;
 export const fadeIn: string;
 export const fadeOut: string;
+export const horizontalShaking: string;
 export const l: string;
 export const m: string;
 export const s: string;

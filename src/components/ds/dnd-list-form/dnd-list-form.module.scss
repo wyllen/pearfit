@@ -1,0 +1,7 @@
+@use '../../../scss/dimensions';
+
+.dnd-list-form {
+  &__input {
+    margin-top: dimensions.$baseRem * 2;
+  }
+}

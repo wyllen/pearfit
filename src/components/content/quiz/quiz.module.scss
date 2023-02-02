@@ -1,0 +1,84 @@
+@use '../../../scss/colors';
+@use '../../../scss/font';
+@use '../../../scss/functions';
+@use '../../../scss/dimensions';
+@use '../../../scss/mixins';
+
+$gap: dimensions.$baseRem * 6;
+.quiz {
+  &-body-background {
+    background: linear-gradient(
+      colors.$secondary,
+      lighten(colors.$secondary, 10%)
+    );
+  }
+  &__title {
+    font-size: functions.toRem(36);
+    margin-bottom: $gap;
+    text-align: center;
+  }
+  &__pill {
+    @include mixins.rounded('s');
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: functions.toRem(40);
+    aspect-ratio: 1 / 1;
+    background: colors.$secondary;
+    color: colors.$white;
+  }
+  &__answers {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $gap;
+    margin-bottom: $gap * 2;
+    > button {
+      flex: 1 1 calc(50% - $gap);
+      justify-content: flex-start;
+      font-size: functions.toRem(24);
+    }
+  }
+  &__actions {
+    display: flex;
+    justify-content: center;
+  }
+  &__pear {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    &-arm {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+      opacity: 0;
+      scale: 0;
+      transition: 100ms ease all;
+      *:has(button:hover) > & {
+        opacity: 1;
+      }
+      *:has(button:nth-child(1):hover) > & {
+        scale: -1 1;
+        margin-left: -30px;
+        margin-top: -20px;
+      }
+      *:has(button:nth-child(2):hover) > & {
+        scale: 1;
+        margin-left: 30px;
+        margin-top: -20px;
+      }
+      *:has(button:nth-child(3):hover) > & {
+        scale: -1 -1;
+        margin-left: -30px;
+        margin-top: 20px;
+      }
+      *:has(button:nth-child(4):hover) > & {
+        scale: 1 -1;
+        margin-left: 30px;
+        margin-top: 20px;
+      }
+    }
+  }
+}

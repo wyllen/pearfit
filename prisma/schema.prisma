@@ -62,7 +62,7 @@ model VerificationToken {
 }
 
 model Candidate {
-    id              String            @id @unique
+    id              String            @id @unique @default(cuid())
     name            String
     linkedinUrl     String?
     organisation    Organisation?     @relation(fields: [organisationId], references: [id])
@@ -74,7 +74,7 @@ model Candidate {
 }
 
 model Role {
-    id             String        @id @unique
+    id             String        @id @unique @default(cuid())
     name           String?
     organisation   Organisation? @relation(fields: [organisationId], references: [id])
     Candidate      Candidate[]
@@ -84,7 +84,7 @@ model Role {
 }
 
 model RoleLevel {
-    id     String  @id @unique
+    id     String  @id @unique @default(cuid())
     name   String?
     level  Int?
     role   Role?   @relation(fields: [roleId], references: [id])
@@ -92,7 +92,7 @@ model RoleLevel {
 }
 
 model Organisation {
-    id               String             @id @unique
+    id               String             @id @unique @default(cuid())
     name             String?
     contactEmail     String?
     address          String?
@@ -106,7 +106,7 @@ model Organisation {
 }
 
 model UserOrganisation {
-    id             String        @id @unique
+    id             String        @id @unique @default(cuid())
     user           User?         @relation(fields: [userId], references: [id])
     organisation   Organisation? @relation(fields: [organisationId], references: [id])
     userId         String?
@@ -114,7 +114,7 @@ model UserOrganisation {
 }
 
 model Quiz {
-    id             String          @id @unique
+    id             String          @id @unique @default(cuid())
     name           String?
     createdAt      DateTime?
     updatedAt      DateTime?
@@ -127,7 +127,7 @@ model Quiz {
 }
 
 model Question {
-    id           String   @id @unique
+    id           String   @id @unique @default(cuid())
     title        String?
     quiz         Quiz?    @relation(fields: [quizId], references: [id])
     quizId       String?
@@ -135,7 +135,7 @@ model Question {
 }
 
 model Answer {
-    id              String            @id @unique
+    id              String            @id @unique @default(cuid())
     title           String?
     question        Question?         @relation(fields: [questionId], references: [id])
     questionId      String?
@@ -144,7 +144,7 @@ model Answer {
 }
 
 model CandidateQuiz {
-    id          String     @id @unique
+    id          String     @id @unique @default(cuid())
     evaluatedAt DateTime?
     score       Int?
     candidate   Candidate? @relation(fields: [candidateId], references: [id])
@@ -156,7 +156,7 @@ model CandidateQuiz {
 }
 
 model CandidateAnswer {
-    id                String     @id @unique
+    id                String     @id @unique @default(cuid())
     candidateAnswer   Answer?    @relation(fields: [candidateAnswerId], references: [id])
     candidate         Candidate? @relation(fields: [candidateId], references: [id])
     candidateId       String?

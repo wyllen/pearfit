@@ -1,0 +1,41 @@
+@use '../../../scss/colors';
+@use '../../../scss/mixins';
+@use '../../../scss/dimensions';
+@use 'sass:math';
+
+$gap: math.div(dimensions.$baseRem, 4);
+.dnd-list {
+  position: relative;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin: -$gap 0;
+  }
+  &__item {
+    $item: &;
+    @include mixins.rounded('s');
+    @include mixins.shadow();
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    padding: dimensions.$baseRem * 2;
+    background-color: colors.$white;
+    margin: $gap 0;
+    gap: dimensions.$baseRem;
+    user-select: none;
+    &-handle {
+      opacity: 0.2;
+      flex: 0 0 auto;
+    }
+    &-right-slot {
+      margin-left: auto;
+    }
+    &-delete {
+      opacity: 0;
+      #{$item}:hover & {
+        opacity: 1;
+      }
+    }
+  }
+}
