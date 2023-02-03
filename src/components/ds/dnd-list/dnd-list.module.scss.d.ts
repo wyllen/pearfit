@@ -4,6 +4,7 @@ export const dndList: string;
 export const dndListItem: string;
 export const dndListItemDelete: string;
 export const dndListItemHandle: string;
+export const dndListItemPill: string;
 export const dndListItemRightSlot: string;
 export const dndListList: string;
 export const fadeIn: string;

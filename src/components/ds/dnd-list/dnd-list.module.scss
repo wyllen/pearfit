@@ -24,6 +24,18 @@ $gap: math.div(dimensions.$baseRem, 4);
     margin: $gap 0;
     gap: dimensions.$baseRem;
     user-select: none;
+    cursor: grab;
+    &-pill {
+      @include mixins.rounded('xs');
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: dimensions.$baseRem * 3;
+      aspect-ratio: 1/1;
+      background-color: rgba(colors.$black, 0.1);
+      margin-right: dimensions.$baseRem;
+    }
     &-handle {
       opacity: 0.2;
       flex: 0 0 auto;

@@ -9,6 +9,7 @@ import GridItem from '../../ds/grid-item/grid-item';
 import Grid from '../../ds/grid/grid';
 import Modal from '../../ds/modal/modal';
 import SmallCard from '../../ds/small-card/small-card';
+import QuizForm from '../../forms/quiz-form/quiz-form';
 
 const HomeContent = () => {
   const candidats = useOrganisationCandidates();
@@ -68,13 +69,7 @@ const HomeContent = () => {
                     }
                     title={quiz.name}
                   >
-                    <p>
-                      {quiz.name} Lorem ipsum dolor sit amet consectetur
-                      adipisicing elit. Suscipit, sapiente obcaecati eos,
-                      corrupti neque error magni velit, architecto rerum
-                      consequatur enim quo. Non magnam, quas esse ratione
-                      delectus iure velit!
-                    </p>
+                    <QuizForm quiz={quiz} />
                   </Modal>
                 </GridItem>
               ))}

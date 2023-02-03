@@ -23,10 +23,12 @@ const Form = ({
     { [style.formActionsShake]: !formState.isValid },
   ]);
   return (
-    <form onSubmit={onSubmit}>
+    <form>
       {children}
       <div className={actionsClasses}>
-        <Button>{submitLabel}</Button>
+        <Button type="button" onClick={onSubmit}>
+          {submitLabel}
+        </Button>
       </div>
     </form>
   );

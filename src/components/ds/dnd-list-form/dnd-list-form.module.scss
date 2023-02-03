@@ -1,6 +1,15 @@
 @use '../../../scss/dimensions';
+@use '../../../scss/colors';
+@use '../../../scss/mixins';
 
 .dnd-list-form {
+  @include mixins.rounded();
+  padding: dimensions.$baseRem * 2;
+  background-color: rgba(colors.$white, 0.5);
+  &__label {
+    margin-bottom: dimensions.$baseRem;
+    opacity: 0.7;
+  }
   &__input {
     margin-top: dimensions.$baseRem * 2;
   }

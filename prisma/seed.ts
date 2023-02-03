@@ -103,6 +103,7 @@ const seedQuestions = async () => {
       questions.push({
         id: faker.datatype.uuid(),
         title: faker.lorem.sentence().replace('.', '?'),
+        order: i,
         quizId: quiz.id,
       });
     }
@@ -124,6 +125,7 @@ const seedAnswers = async () => {
         title: faker.lorem.sentence(4),
         questionId: question.id,
         goodAnwser: i === 3,
+        order: i,
       });
     }
   });

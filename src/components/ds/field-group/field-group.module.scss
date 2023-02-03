@@ -1,0 +1,11 @@
+@use '../../../scss/spacing';
+@use '../../../scss/dimensions';
+
+$gap: dimensions.$baseRem * 4;
+.field-group {
+  @each $name, $value in spacing.$spacing {
+    &#{$name} {
+      margin: #{$gap * $value / 2} 0;
+    }
+  }
+}

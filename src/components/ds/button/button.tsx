@@ -6,6 +6,7 @@ import styles from './button.module.scss';
 
 interface ButtonProps {
   color?: Colors;
+  type?: 'button' | 'submit' | 'reset';
   size?: Sizes;
   className?: string;
   children?: ReactNode;
@@ -14,6 +15,7 @@ interface ButtonProps {
 
 const Button = ({
   color = 'primary',
+  type = 'button',
   size = 'm',
   className = '',
   children,
@@ -27,7 +29,7 @@ const Button = ({
     className
   );
   return (
-    <button {...props} className={classNames} onClick={onClick}>
+    <button {...props} type={type} className={classNames} onClick={onClick}>
       {children}
     </button>
   );

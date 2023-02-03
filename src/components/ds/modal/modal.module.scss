@@ -1,5 +1,6 @@
 @use '../../../scss/functions';
 @use '../../../scss/mixins';
+@use '../../../scss/timing';
 
 $width: functions.toRem(600);
 
@@ -11,6 +12,13 @@ $width: functions.toRem(600);
     inset: 0;
     backdrop-filter: blur(10px);
     background: rgba(0, 0, 0, 0.7);
+    transition: timing.$default;
+    ~ [style*='z-index'] {
+      z-index: 2000 !important;
+    }
+    &:has(~ [class*='overlay']) {
+      background: rgba(0, 0, 0, 0);
+    }
     &[data-state='open'] {
       @include mixins.fadeIn();
     }
@@ -20,6 +28,9 @@ $width: functions.toRem(600);
     }
   }
   &__content {
+    &:has(~ [class*='overlay']) {
+      z-index: 1000;
+    }
     &[data-state='open'] {
       @include mixins.appearFromBottom();
     }
@@ -32,6 +43,8 @@ $width: functions.toRem(600);
     transform: translate(-50%, -50%);
     width: $width;
     z-index: 1001;
+    overflow-y: auto;
+    max-height: 95vh;
 
     .close {
       background-color: transparent;

@@ -5,13 +5,11 @@ import Form from '../../common/forms/form/form';
 import FieldGroup from '../../ds/field-group/field-group';
 import TextField from '../../ds/text-field/text-field';
 
-interface OrganisationInformationsFormProps {
+interface OrganisationFormProps {
   organisation?: Organisation | null;
 }
 
-const OrganisationInformationsForm = ({
-  organisation,
-}: OrganisationInformationsFormProps) => {
+const OrganisationForm = ({ organisation }: OrganisationFormProps) => {
   const { register, reset, control, handleSubmit, watch, formState } =
     useForm<Organisation>({
       values: {
@@ -97,4 +95,4 @@ const OrganisationInformationsForm = ({
   );
 };
 
-export default OrganisationInformationsForm;
+export default OrganisationForm;

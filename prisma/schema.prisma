@@ -131,6 +131,7 @@ model Question {
     title        String?
     quiz         Quiz?    @relation(fields: [quizId], references: [id])
     quizId       String?
+    order        Int?
     answers      Answer[]
 }
 
@@ -139,6 +140,7 @@ model Answer {
     title           String?
     question        Question?         @relation(fields: [questionId], references: [id])
     questionId      String?
+    order           Int?
     goodAnwser      Boolean?
     CandidateAnswer CandidateAnswer[]
 }

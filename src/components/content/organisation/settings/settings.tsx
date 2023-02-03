@@ -7,14 +7,14 @@ import useOrganisationRoles from '../../../../hooks/useOrganisationRoles';
 import { api } from '../../../../utils/api';
 import Card from '../../../ds/card/card';
 import Container from '../../../ds/container/container';
-import DndListForm from '../../../ds/dnd-list-form/dnd-list-form';
 import type { OrderType } from '../../../ds/dnd-list/dnd-list';
 import GridItem from '../../../ds/grid-item/grid-item';
 import Grid from '../../../ds/grid/grid';
 import Modal from '../../../ds/modal/modal';
 import SmallCard from '../../../ds/small-card/small-card';
 import TextField from '../../../ds/text-field/text-field';
-import OrganisationInformations from '../../../forms/organisationInformations/organisationInformations';
+import OrganisationInformations from '../../../forms/organisation-form/organisation-form';
+import OrganisationRolesForm from '../../../forms/role-form/role-form';
 
 const OrganisationSettingsContent = () => {
   const { t } = useTranslation();
@@ -58,8 +58,8 @@ const OrganisationSettingsContent = () => {
     items: OrderType[]
   ) => {
     updateRoleLevelsMutation.mutate({
-      roleLevels: items.map((item) => ({
-        level: item.order,
+      roleLevels: items.map((item, index) => ({
+        level: index + 1,
         id: item.id,
       })),
     });
@@ -70,10 +70,10 @@ const OrganisationSettingsContent = () => {
         ...role,
         roleLevel:
           updatedRoles[roleIndex]?.roleLevel?.map((item) => {
-            const newItem = items.find((i) => i.id === item.id);
+            const newItemIndex = items.findIndex((i) => i.id === item.id);
             return {
               ...item,
-              level: newItem?.order,
+              level: newItemIndex + 1,
             } as RoleLevel;
           }) || [],
       };
@@ -96,16 +96,15 @@ const OrganisationSettingsContent = () => {
             {roles?.map((role, key) => {
               return (
                 <Modal
-                  key={key}
+                  key={role.id}
                   trigger={
                     <SmallCard
                       title={`${role.name}`}
                       subtitle={`${role.roleLevel.length} niveaux`}
                     />
                   }
-                  title={`${role.name}`}
                 >
-                  <DndListForm
+                  {/* <DndListForm
                     onChange={(items) => {
                       hanleChangeRoleLevels(role, items);
                     }}
@@ -120,13 +119,13 @@ const OrganisationSettingsContent = () => {
                       removeRoleLevelMutation.mutate({ roleLevelId: id })
                     }
                     elements={role.roleLevel
+                      .sort((a, b) => (a.level || 0) - (b.level || 0))
                       .map((level, index) => ({
                         id: level.id,
                         name: level.name || '',
-                        order: level.level || index,
-                      }))
-                      .sort((a, b) => a.order - b.order)}
-                  />
+                      }))}
+                  /> */}
+                  <OrganisationRolesForm roleWithLevels={role} />
                 </Modal>
               );
             })}
